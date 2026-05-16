@@ -28,23 +28,23 @@ header {
 }
 
 .logo_container {
-    margin-left: 50px;
     background-color: transparent;
+    display: flex;
+    align-items: center;
 }
 
 .logo_container img {
-    width: 320px;
-    height: 170px;
+    max-width: 320px;
+    height: auto;
+    width: 100%;
 }
 
 .main_navbar ul {
     display: flex;
-    position: relative;
-    right: 90px;
     justify-content: center;
+    align-items: center;
     list-style: none;
-    gap: 100px;
-    flex: 1;
+    gap: 3rem;
     padding: 0;
     margin: 0;
 }
@@ -85,6 +85,7 @@ header {
     margin-top: auto;
     flex-shrink: 0;
     flex-wrap: wrap;
+    margin-bottom: 0;
 }
 
 .footer_settings {
@@ -108,8 +109,9 @@ header {
 }
 
 .footer_settings img {
-    width: 310px;
-    height: 140px;
+    max-width: 310px;
+    height: auto;
+    width: 100%;
 }
 
 .footer_columns {
@@ -185,133 +187,117 @@ header {
     object-fit: cover;
 }
 
+.coloresDiv input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.color-circle {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.coloresDiv input:checked + .color-circle {
+    border-color: #0d6efd;
+    transform: scale(1.15);
+}
+
+/* --- Media Queries Responsivos --- */
+
+/* Tablets (1024px) */
 @media (max-width: 1024px) {
     .main_navbar ul {
-        gap: 30px;
-        left: 20px;
-    }
-
-    .logo_container {
-        margin-left: 20px;
+        gap: 1.5rem;
     }
 
     .logo_container img {
-        width: 170px;
-        height: 70px;
+        max-width: 250px;
     }
 
     .main_navbar a {
-        font-size: 15px;
-        padding: 0.4rem 0.6rem;
+        font-size: 18px;
+    }
+    
+    .footer_top {
+        gap: 2rem;
+    }
+
+    .footer_columns {
+        gap: 2rem;
     }
 }
 
+/* Teléfonos y Tablets en vertical (768px) */
 @media (max-width: 768px) {
     .main_navbar {
         flex-direction: column;
-        padding: 15px;
+        padding: 1rem;
+        gap: 1rem;
     }
 
-    .logo_container {
-        margin-left: 0;
+    .logo_container img {
+        max-width: 200px;
     }
 
     .main_navbar ul {
+        gap: 1rem;
         flex-wrap: wrap;
-        justify-content: center;
-        left: 0;
-        gap: 10px;
-        padding: 10px 0;
     }
 
     .footer_top {
         flex-direction: column;
         align-items: center;
+        text-align: center;
         gap: 2rem;
     }
 
     .footer_columns {
         flex-direction: column;
-        gap: 2rem;
         align-items: center;
-        text-align: center;
+        gap: 2rem;
+    }
+
+    .footer_settings img {
+        max-width: 250px;
+    }
+    
+    .hero_image {
+        max-height: 400px;
     }
 }
 
+/* Teléfonos pequeños (480px) */
 @media (max-width: 480px) {
     .main_navbar ul {
         flex-direction: column;
-        align-items: center;
-        gap: 5px;
+        width: 100%;
+        gap: 0.5rem;
+    }
+    
+    .main_navbar a {
+        display: block;
+        width: 100%;
+        text-align: center;
     }
 
     .logo_container img {
-        width: 150px;
-        height: 60px;
-    }
-
-    .main_navbar a {
-        font-size: 14px;
+        max-width: 150px;
     }
 
     .footer_settings {
         padding: 1rem;
     }
-
-    .footer_settings img {
-        width: 200px;
-        height: 90px;
+    
+    .hero_image {
+        max-height: 300px;
     }
-
-    .footer_top {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .footer_columns {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1.5rem;
-    }
-
+    
     .col_title {
-        font-size: 16px;
-    }
-
-    .col_info a {
-        font-size: 14px;
-    }
-
-    .dev_link {
-        font-size: 12px;
-        text-align: center;
-    }
-
-    .hero_image {
-        height: auto;
-        max-height: 600px;
-}
-
-
-@media (min-width: 992px) {
-    .hero_image {
-        height: auto;
-        max-height: 600px;
+        font-size: 18px;
     }
 }
-
-@media (max-width: 769px) {
-    .hero_image {
-        overflow: hidden;
-    }
-}
-
-@media (max-width: 769px) {
-    .hero_image {
-        width: 100%;
-        height: 100%;
-    }
-}
-

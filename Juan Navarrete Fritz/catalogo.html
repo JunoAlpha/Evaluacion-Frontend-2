@@ -20,6 +20,25 @@
     </nav>
     </header>  
 
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <!-- Izquierda: Imagen y Colores -->
+            <div class="col-md-6 mb-4">
+                <img id="imagen_vehiculo" alt="Vehículo" class="img-fluid mb-4 rounded shadow-sm">
+                
+                <label class="form-label fw-bold small text-uppercase ls-1">Colores Disponibles</label>
+                <div id="selector_colores" class="d-flex flex-wrap gap-3 mt-2"></div>
+            </div>
+            
+            <!-- Derecha: Detalles de las primeras 10 propiedades -->
+            <div class="col-md-5 offset-md-1">
+                <h3 class="mb-4 text-uppercase fw-bold" style="font-family: 'Allerta Stencil', sans-serif;">Especificaciones</h3>
+                <ul id="detalles-auto" class="list-group list-group-flush">
+                    <!-- JS inyectará los detalles aquí -->
+                </ul>
+            </div>
+        </div>
+    </div>
     <section class="footer_main">
     <footer class="footer_settings">
       <div class="footer_top">
