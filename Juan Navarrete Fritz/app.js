@@ -3,11 +3,11 @@ const auto =  {
     modelo: "MX-5",
     añosGarantia: "5 o primeros 100.000 km",
     nroPasajeros: 2,
-    descripción: "Un auto biplaza listo para impresionarte y llevarte más lejos",
+    descripcion: "Un auto biplaza listo para impresionarte y llevarte más lejos",
     motor: "2.0L Skyactiv-G de 181 HP y 205 Nm de torque",
     rendimiento: "Ciudad: 11,1 km/l - Carretera: 17,6 km/l - Mixto: 14,5 km/l",
-    tracción: "Trasera (RWD)",
-    transmisión: "Manual",
+    traccion: "Trasera (RWD)",
+    transmision: "Manual",
     procedencia: "Japón",
     precioBase: 5000000,
     colores: [
@@ -52,6 +52,23 @@ auto.colores.forEach((colores, index) => { //index es la posicion del elemento e
 //query selector = toma un elemento y evento seleccionado para realizar
 //una accion, en este caso el evento es change es un evento que se ejecuta cuando el valor de un elemento cambia
 
+// Mapa de etiquetas: clave del objeto auto -> título que se muestra en pantalla
+// Puedes cambiar los strings de la derecha sin afectar el código
+const etiquetasAuto = {
+    marca:        "Marca",
+    modelo:       "Modelo",
+    añosGarantia: "Años de Garantía",
+    nroPasajeros: "N° Pasajeros",
+    motor:        "Motor",
+    rendimiento:  "Rendimiento",
+    traccion:     "Tracción",
+    transmision:  "Transmisión",
+    procedencia:  "Procedencia",
+    precioBase:   "Precio Base",
+};
+
+const formatearClave = (clave) => etiquetasAuto[clave] ?? String(clave);
+
 const detallesAuto = document.getElementById("detalles-auto");
 
 if (detallesAuto) {
@@ -59,12 +76,9 @@ if (detallesAuto) {
     const propiedadesAuto = Object.entries(auto).slice(0,10).filter((_, index) => index !== 4);
     
     propiedadesAuto.forEach(([clave, valor]) => {
-        // Le damos un mejor formato a la clave (Ej: "añosGarantia" -> "Años Garantia")
-        let claveFormateada = clave.charAt(0).toUpperCase() + clave.slice(1).replace(/([A-Z])/g, ' $1');
-        
         const li = document.createElement('li');
         li.className = 'list-group-item d-flex justify-content-between align-items-start bg-transparent px-0 border-dark-subtle';
-        li.innerHTML = `<span class="fw-bold text-uppercase" style="font-size: 0.85rem;">${claveFormateada}:</span> <span class="text-end text-muted w-50">${valor}</span>`;
+        li.innerHTML = `<span class="fw-bold text-uppercase" style="font-size: 0.85rem;">${formatearClave(clave)}:</span> <span class="text-end text-muted w-50">${valor}</span>`;
         
         detallesAuto.appendChild(li);
     });
@@ -89,7 +103,12 @@ const calcularTotal = () => {
     let precioTotal = auto.precioBase;
     const colorChecked = document.querySelector("input[name='color_auto']:checked");
     const nombreColor = colorChecked.getAttribute("data_nombre"); 
-    document.getElementById("valor_color").textContent = `Color${nombreColor}:$${parseFloat(colorChecked.value).toLocaleString("es-CL")}`;
+
+    // FIX: solo actualizar estos elementos si existen (no existen en compra.html)
+    const valorColorEl = document.getElementById("valor_color");
+    if (valorColorEl) {
+        valorColorEl.textContent = `Color ${nombreColor}: $${parseFloat(colorChecked.value).toLocaleString("es-CL")}`;
+    }
     if(colorChecked){precioTotal += parseInt(colorChecked.value)}; 
 
     const listaExtras = document.getElementById("valor_extras");
@@ -110,7 +129,10 @@ const calcularTotal = () => {
     });
 
     const contenidoTotal = document.getElementById("precio_total_display");
-    document.getElementById("valor_base").textContent = "Precio Base: " + `$${auto.precioBase.toLocaleString("es-CL")}`;
+    const valorBaseEl = document.getElementById("valor_base");
+    if (valorBaseEl) {
+        valorBaseEl.textContent = "Precio Base: " + `$${auto.precioBase.toLocaleString("es-CL")}`;
+    }
     if (contenidoTotal) {
         contenidoTotal.textContent = `$${precioTotal.toLocaleString("es-CL")}`;
     }
@@ -133,12 +155,13 @@ const calcularTotal = () => {
 const pantallaCompra = () => {
     const compraValorBase = document.getElementById("valor_base")
     if (compraValorBase){
-        compraValorBase.textContent = "Precio Base: " + `$${compraValorBase.toLocaleString("es-CL")}`;
+        // FIX: usar auto.precioBase en vez de compraValorBase (que es un elemento HTML)
+        compraValorBase.textContent = "Precio Base: " + `$${auto.precioBase.toLocaleString("es-CL")}`;
     }
 
     const compraColor = document.getElementById("valor_color")
     if (compraColor){
-        const compraValorColor = parseInt(localStorage.getItem("valor_color"));
+        const compraValorColor = parseInt(localStorage.getItem("valor_color")) || 0;
         const compraNombreColor = localStorage.getItem("nombreColor");
 
         if(compraNombreColor){
@@ -164,4 +187,9 @@ const pantallaCompra = () => {
         const compraTotalItem = parseInt(localStorage.getItem("precioTotal")) || auto.precioBase;
         compraValorTotal.textContent = "Precio Total: " + `$${compraTotalItem.toLocaleString("es-CL")}`;
     }   
+}
+
+// FIX: llamar pantallaCompra() si estamos en compra.html
+if (window.location.pathname.endsWith("compra.html")) {
+    pantallaCompra();
 }

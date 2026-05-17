@@ -20,13 +20,22 @@
     </nav>
     </header>
 
-<div class="desglose-compra">
-    <p id="valor_base" ></p>    <!-- Aquí irá el precio base -->
-    <p id="valor_color"></p>    <!-- Aquí irá "Color Rojo: $0" -->
-    <ul id="valor_extras"></ul> <!-- Aquí irán los adicionales como lista -->
-    
-    <h3>Total a Pagar: $<span id="precio_total_display">0</span></h3>
-</div>
+    <main class="compra-contenedor">
+        <div class="desglose-compra">
+            <h2 class="titulo-compra">Resumen de Compra</h2>
+            <div class="detalle-items">
+                <p id="valor_base" class="detalle-linea"></p>
+                <p id="valor_color" class="detalle-linea"></p>
+                <div class="detalles-adicionales">
+                    <span class="titulo-adicionales">Adicionales:</span>
+                    <ul id="valor_extras"></ul>
+                </div>
+            </div>
+            <hr class="linea-compra">
+            <h3 class="total-compra">Total a Pagar: <span id="precio_total_display">$0</span></h3>
+            <button class="boton-confirmar" onclick="alert('¡Gracias por su compra!')">Confirmar Pedido</button>
+        </div>
+    </main>
 
 
     <section class="footer_main">

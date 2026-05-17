@@ -20,31 +20,45 @@
     </nav>
     </header>  
 
-    <div class="container my-5">
-        <div class="row align-items-center">
-            <!-- Izquierda: Imagen y Colores -->
-            <div class="col-md-6 mb-4">
-                <img id="imagen_vehiculo" alt="Vehículo" class="img-fluid mb-4 rounded shadow-sm">
-                
-                <label class="form-label fw-bold small text-uppercase ls-1">Colores Disponibles</label>
-                <div id="selector_colores" class="d-flex flex-wrap gap-3 mt-2"></div>
-            </div>
-            
-            <!-- Derecha: Detalles de las primeras 10 propiedades -->
-            <div class="col-md-5 offset-md-1">
-                <h3 class="mb-4 text-uppercase fw-bold" style="font-family: 'Allerta Stencil', sans-serif;">Especificaciones</h3>
-                <ul id="detalles-auto" class="list-group list-group-flush">
-                    <!-- JS inyectará los detalles aquí -->
-                </ul>
+    <!-- ── HERO: foto + colores centrados ── -->
+    <section class="catalogo-hero">
+        <img id="imagen_vehiculo" alt="Vehículo" class="catalogo-hero__img">
+        <div class="catalogo-hero__colores">
+            <label class="catalogo-hero__colores-label">Colores Disponibles</label>
+            <div id="selector_colores" class="catalogo-hero__selector"></div>
+        </div>
+    </section>
+
+    <!-- ── PANEL INFERIOR: 3 columnas ── -->
+    <section class="catalogo-panel">
+
+        <!-- Columna 1: Especificaciones -->
+        <div class="catalogo-panel__specs">
+            <h3 class="catalogo-panel__titulo">Especificaciones</h3>
+            <ul id="detalles-auto" class="list-group list-group-flush">
+                <!-- JS inyectará los detalles aquí -->
+            </ul>
+        </div>
+
+        <!-- Columna 2: Opciones adicionales -->
+        <div class="catalogo-panel__opciones">
+            <h3 class="catalogo-panel__titulo">Opciones</h3>
+            <div id="contenedor_adicionales"></div>
+        </div>
+
+        <!-- Columna 3: Resumen de compra -->
+        <div class="catalogo-panel__resumen">
+            <h3 class="catalogo-panel__titulo">Resumen</h3>
+            <p id="valor_base" class="resumen-linea"></p>
+            <p id="valor_color" class="resumen-linea"></p>
+            <ul id="valor_extras" class="resumen-extras"></ul>
+            <div class="resumen-total">
+                <span>Total a Pagar</span>
+                <span id="precio_total_display">$0</span>
             </div>
         </div>
-    </div>
 
-    <div id="contenedor_adicionales"></div>
-
-    <div class="resumen-compra">
-        <h3>Total a Pagar: $<span id="precio_total_display">0</span></h3>
-    </div>
+    </section>
 
 
     <section class="footer_main">
