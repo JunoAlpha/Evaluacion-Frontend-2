@@ -1,5 +1,5 @@
 const auto =  {
-    marca: "Mazda",
+    marca: "CV",
     modelo: "MX-5",
     añosGarantia: "5 o primeros 100.000 km",
     nroPasajeros: 2,
@@ -38,7 +38,7 @@ if (imagenAuto && auto.colores.length > 0) {
 auto.colores.forEach((colores, index) => { //index es la posicion del elemento en el array
     const coloresDiv = document.createElement('div');
     coloresDiv.className = "coloresDiv";
-    coloresDiv.innerHTML = `<input type="radio" name="color_auto" id="color-${index}" value="${colores.precio}" ${index === 0 ? 'checked' : ''}>
+    coloresDiv.innerHTML = `<input type="radio" name="color_auto" id="color-${index}" value="${colores.precio}" data_nombre="${colores.nombre}" ${index === 0 ? 'checked' : ''}>
         <label for="color-${index}" class="selector_circulo" style="background-color: ${colores.codigo}" title="${colores.nombre}"></label>
         `;
     coloresDiv.querySelector("input").addEventListener("change", () =>{
@@ -72,10 +72,10 @@ if (detallesAuto) {
 
 const contenedorAdicionales = document.getElementById("contenedor_adicionales");
 if (contenedorAdicionales) {
-    auto.adicionales.forEach((adicionales, index) =>{
+    auto.adicionales.forEach((adicionales, index) => {
         const adicionalesDiv = document.createElement('div');
         adicionalesDiv.className = "adicionalesDiv";
-        adicionalesDiv.innerHTML = `<input type="checkbox" name="adicionales_auto" id="adicional-${index}" value="${adicionales.precio}">
+        adicionalesDiv.innerHTML = `<input type="checkbox" name="adicionales_auto" id="adicional-${index}" value="${adicionales.precio}" data_nombre="${adicionales.nombre}">
             <label for="adicional-${index}" class="adicional-label">${adicionales.nombre}</label>
         `;
         adicionalesDiv.querySelector("input").addEventListener("change", () => {
@@ -88,14 +88,80 @@ if (contenedorAdicionales) {
 const calcularTotal = () => {
     let precioTotal = auto.precioBase;
     const colorChecked = document.querySelector("input[name='color_auto']:checked");
+    const nombreColor = colorChecked.getAttribute("data_nombre"); 
+    document.getElementById("valor_color").textContent = `Color${nombreColor}:$${parseFloat(colorChecked.value).toLocaleString("es-CL")}`;
     if(colorChecked){precioTotal += parseInt(colorChecked.value)}; 
 
+    const listaExtras = document.getElementById("valor_extras");
+        if (listaExtras) {listaExtras.replaceChildren();}
+
     const adicionalesChecked = document.querySelectorAll("input[name='adicionales_auto']:checked");
-    adicionalesChecked.forEach((adicionalcheck) => {
-        precioTotal += parseInt(adicionalcheck.value);
+
+    adicionalesChecked.forEach((adicionalCheck) => {
+        const adicionalesPrecio = parseInt(adicionalCheck.value);
+        precioTotal += adicionalesPrecio;
+        const nombreAdicional = adicionalCheck.getAttribute("data_nombre");
+        const li = document.createElement("li");
+        li.textContent = `${nombreAdicional} + $${adicionalesPrecio.toLocaleString("es-CL")}`;
+
+        if(listaExtras){
+            listaExtras.appendChild(li);
+        }
     });
 
     const contenidoTotal = document.getElementById("precio_total_display");
-    if (contenidoTotal){contenidoTotal.innerText = precioTotal.toLocaleString("es-CL")}
+    document.getElementById("valor_base").textContent = "Precio Base: " + `$${auto.precioBase.toLocaleString("es-CL")}`;
+    if (contenidoTotal) {
+        contenidoTotal.textContent = `$${precioTotal.toLocaleString("es-CL")}`;
+    }
+
+    localStorage.setItem("precioTotal", precioTotal);
+    localStorage.setItem("nombreColor", nombreColor);
+    localStorage.setItem("valor_color", colorChecked.value);
+    
+    const adicionalesSeleccionados = [];
+    adicionalesChecked.forEach((adicionalCheck) => {
+        adicionalesSeleccionados.push({
+            nombre: adicionalCheck.getAttribute("data_nombre"),
+            valor: parseInt(adicionalCheck.value),
+        });
+    });
+    localStorage.setItem("adicionalSeleccionados",JSON.stringify(adicionalesSeleccionados));
 }
 
+
+const pantallaCompra = () => {
+    const compraValorBase = document.getElementById("valor_base")
+    if (compraValorBase){
+        compraValorBase.textContent = "Precio Base: " + `$${compraValorBase.toLocaleString("es-CL")}`;
+    }
+
+    const compraColor = document.getElementById("valor_color")
+    if (compraColor){
+        const compraValorColor = parseInt(localStorage.getItem("valor_color"));
+        const compraNombreColor = localStorage.getItem("nombreColor");
+
+        if(compraNombreColor){
+            compraColor.textContent = `Color: ${compraNombreColor} + $${compraValorColor.toLocaleString("es-CL")}`;
+        }
+    }
+
+    const compraListaExtras = document.getElementById("valor_extras")
+    if (compraListaExtras){
+        const compraAdicionales = localStorage.getItem("adicionalSeleccionados");
+        if(compraAdicionales){
+            const compraAdicionalesArray = JSON.parse(compraAdicionales);
+            compraAdicionalesArray.forEach(extra =>{
+                const li =  document.createElement("li")
+                li.textContent = `${extra.nombre} + $${extra.valor.toLocaleString("es-CL")}`;
+                compraListaExtras.appendChild(li);
+            });
+        }
+    }
+
+    const compraValorTotal = document.getElementById("precio_total_display");
+    if(compraValorTotal){
+        const compraTotalItem = parseInt(localStorage.getItem("precioTotal")) || auto.precioBase;
+        compraValorTotal.textContent = "Precio Total: " + `$${compraTotalItem.toLocaleString("es-CL")}`;
+    }   
+}
