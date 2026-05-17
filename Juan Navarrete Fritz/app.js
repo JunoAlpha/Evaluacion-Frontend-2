@@ -25,6 +25,7 @@ const auto =  {
 }
 
 
+
 const imagenAuto = document.getElementById("imagen_vehiculo");
 // Buscar el selector en catalogo.html o en compra.html
 const selectorColores = document.getElementById("selector_colores")
@@ -36,26 +37,20 @@ if (imagenAuto && auto.colores.length > 0) {
 
 auto.colores.forEach((colores, index) => { //index es la posicion del elemento en el array
     const coloresDiv = document.createElement('div');
-    coloresDiv.className = 'coloresDiv';
-    coloresDiv.innerHTML = `<input type="radio" name="color-vehiculo" id="color-${index}" value="${colores.precio}" ${index === 0 ? 'checked' : ''}>
-            <label for="color-${index}" class="color-circle" style="background-color: ${colores.codigo}" title="${colores.nombre}"></label>
+    coloresDiv.className = "coloresDiv";
+    coloresDiv.innerHTML = `<input type="radio" name="color_auto" id="color-${index}" value="${colores.precio}" ${index === 0 ? 'checked' : ''}>
+        <label for="color-${index}" class="selector_circulo" style="background-color: ${colores.codigo}" title="${colores.nombre}"></label>
         `;
-    coloresDiv.querySelector("input").addEventListener("change", () =>{  
-        if(imagenAuto) imagenAuto.src = colores.imagen;       
+    coloresDiv.querySelector("input").addEventListener("change", () =>{
+        if(imagenAuto) imagenAuto.src = colores.imagen;
+        calcularTotal();
     });
     
     if(selectorColores) selectorColores.appendChild(coloresDiv); 
 });
 
-//query selector = toma un elemento y toma un evento seleccionado para realizar
+//query selector = toma un elemento y evento seleccionado para realizar
 //una accion, en este caso el evento es change es un evento que se ejecuta cuando el valor de un elemento cambia
-
-function calculoPrecio(){
-    const colorSeleccionado = document.querySelector('input[name="color-vehiculo"]:checked');
-    const precioColor = parseInt(colorSeleccionado.value) || 0;
-    const precioAdicional = parseInt(elSelectorAdicionales.value) || 0;
-    const total = automovil.precioBase + precioColor + precioAdicional;
-}
 
 const detallesAuto = document.getElementById("detalles-auto");
 
@@ -75,5 +70,32 @@ if (detallesAuto) {
     });
 }
 
+const contenedorAdicionales = document.getElementById("contenedor_adicionales");
+if (contenedorAdicionales) {
+    auto.adicionales.forEach((adicionales, index) =>{
+        const adicionalesDiv = document.createElement('div');
+        adicionalesDiv.className = "adicionalesDiv";
+        adicionalesDiv.innerHTML = `<input type="checkbox" name="adicionales_auto" id="adicional-${index}" value="${adicionales.precio}">
+            <label for="adicional-${index}" class="adicional-label">${adicionales.nombre}</label>
+        `;
+        adicionalesDiv.querySelector("input").addEventListener("change", () => {
+            calcularTotal()
+        });
+        contenedorAdicionales.appendChild(adicionalesDiv);
+    });
+}
 
+const calcularTotal = () => {
+    let precioTotal = auto.precioBase;
+    const colorChecked = document.querySelector("input[name='color_auto']:checked");
+    if(colorChecked){precioTotal += parseInt(colorChecked.value)}; 
+
+    const adicionalesChecked = document.querySelectorAll("input[name='adicionales_auto']:checked");
+    adicionalesChecked.forEach((adicionalcheck) => {
+        precioTotal += parseInt(adicionalcheck.value);
+    });
+
+    const contenidoTotal = document.getElementById("precio_total_display");
+    if (contenidoTotal){contenidoTotal.innerText = precioTotal.toLocaleString("es-CL")}
+}
 
