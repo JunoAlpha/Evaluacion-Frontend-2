@@ -21,7 +21,7 @@ header {
 
 .main_navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px;
     background-color: #686a6c ;
@@ -34,8 +34,8 @@ header {
 }
 
 .logo_container img {
-    max-width: 320px;
-    height: auto;
+    max-width: 300px;
+    height: 120px;
     width: 100%;
 }
 
@@ -73,9 +73,18 @@ header {
 }
 
 .logo_container a:hover {
-    width: 320px;
-    height: 170px;
+    max-width: 300px;
+    height: 120px;
     background-color: transparent;
+}
+
+.imagen_promo img{
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    object-fit: cover;
 }
 
 .footer_main {
@@ -174,7 +183,6 @@ header {
     text-decoration: underline;
 }
 
-/* Imagen Principal (Hero) */
 .hero_section {
     width: 100%;
     height: 100%;
@@ -207,9 +215,6 @@ header {
     transform: scale(1.15);
 }
 
-/* --- Media Queries Responsivos --- */
-
-/* Tablets (1024px) */
 @media (max-width: 1024px) {
     .main_navbar ul {
         gap: 1.5rem;
@@ -232,7 +237,6 @@ header {
     }
 }
 
-/* Teléfonos y Tablets en vertical (768px) */
 @media (max-width: 768px) {
     .main_navbar {
         flex-direction: column;
@@ -271,7 +275,6 @@ header {
     }
 }
 
-/* Teléfonos pequeños (480px) */
 @media (max-width: 480px) {
     .main_navbar ul {
         flex-direction: column;
@@ -302,9 +305,6 @@ header {
     }
 }
 
-/* ══════════════════════════════════════════════
-   CATÁLOGO — HERO (foto + colores)
-══════════════════════════════════════════════ */
 .catalogo-hero {
     display: flex;
     flex-direction: column;
@@ -345,9 +345,6 @@ header {
     justify-content: center;
 }
 
-/* ══════════════════════════════════════════════
-   CATÁLOGO — PANEL 3 COLUMNAS
-══════════════════════════════════════════════ */
 .catalogo-panel {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -369,14 +366,12 @@ header {
     border-bottom: 2px solid #686a6c;
 }
 
-/* ── Specs (columna izquierda) ── */
 .catalogo-panel__specs .list-group-item {
     background: transparent;
     font-size: 0.85rem;
     padding: 0.45rem 0;
 }
 
-/* ── Opciones / adicionales (columna central) ── */
 .catalogo-panel__opciones {
     display: flex;
     flex-direction: column;
@@ -388,7 +383,6 @@ header {
     margin-bottom: 0.6rem;
 }
 
-/* Ocultar el checkbox nativo */
 .adicionalesDiv input[type="checkbox"] {
     position: absolute;
     opacity: 0;
@@ -396,7 +390,6 @@ header {
     height: 0;
 }
 
-/* Checkbox estilizado */
 .adicional-label {
     display: flex;
     align-items: center;
@@ -413,7 +406,6 @@ header {
     user-select: none;
 }
 
-/* Cuadrado personalizado a la izquierda del label */
 .adicional-label::before {
     content: "";
     display: inline-block;
@@ -426,7 +418,6 @@ header {
     transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-/* Estado marcado */
 .adicionalesDiv input[type="checkbox"]:checked + .adicional-label {
     border-color: #686a6c;
     background: rgba(104, 106, 108, 0.12);
@@ -447,7 +438,6 @@ header {
     background: rgba(255,255,255,0.8);
 }
 
-/* ── Resumen / total (columna derecha) ── */
 .catalogo-panel__resumen {
     display: flex;
     flex-direction: column;
@@ -494,7 +484,6 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* ── Responsivo del panel ── */
 @media (max-width: 1024px) {
     .catalogo-panel {
         grid-template-columns: 1fr 1fr;
@@ -515,9 +504,25 @@ header {
     }
 }
 
-/* ══════════════════════════════════════════════
-   PÁGINA DE COMPRA — ESTILOS SIMPLIFICADOS
-══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+    .catalogo-panel {
+        padding: 1rem;
+    }
+    .catalogo-hero {
+        padding: 1rem 0.5rem;
+    }
+    .catalogo-panel__titulo {
+        font-size: 0.9rem;
+    }
+    .adicional-label {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+    .resumen-total {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
+    }
+}
 .compra-contenedor {
     display: flex;
     justify-content: center;
@@ -639,4 +644,164 @@ header {
     transform: scale(0.99);
 }
 
+@media (max-width: 768px) {
+    .compra-contenedor {
+        padding: 2rem 1rem;
+    }
+    .desglose-compra {
+        padding: 1.5rem;
+    }
+    .titulo-compra {
+        font-size: 1.3rem;
+    }
+    .total-compra {
+        font-size: 1.1rem;
+    }
+}
 
+@media (max-width: 480px) {
+    .compra-contenedor {
+        padding: 1rem 0.5rem;
+    }
+    .desglose-compra {
+        padding: 1rem;
+    }
+    .boton-confirmar {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+}
+
+.index-contenedor {
+    padding: 2rem 4rem 5rem 4rem; 
+    background-color: rgb(203, 208, 211);
+    display: flex;
+    flex-direction: column;
+    gap: 5rem; 
+}
+
+.titulo-principal {
+    font-family: 'Allerta Stencil', sans-serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.promo-contenido,
+.mantenimiento-contenido,
+.filosofia-contenido {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.texto-promo,
+.texto-mantenimiento,
+.texto-filosofia {
+    flex: 1;
+    text-align: left;
+}
+
+.texto-promo p,
+.texto-mantenimiento p,
+.texto-filosofia p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+    margin: 0;
+}
+
+.texto-mantenimiento h2,
+.texto-filosofia h3 {
+    font-family: 'Allerta Stencil', sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.imagen-promo,
+.imagen-mantenimiento,
+.imagen-filosofia {
+    flex: 1.2;
+    display: flex;
+    justify-content: center;
+}
+
+.imagen-promo img,
+.imagen-mantenimiento img,
+.imagen-filosofia img {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+}
+
+@media (max-width: 992px) {
+    .index-contenedor {
+        padding: 2rem 2rem 5rem 2rem;
+        gap: 4rem;
+    }
+    
+    .promo-contenido,
+    .mantenimiento-contenido,
+    .filosofia-contenido {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .seccion-mantenimiento .mantenimiento-contenido {
+        flex-direction: column-reverse; 
+    }
+
+    .texto-promo,
+    .texto-mantenimiento,
+    .texto-filosofia {
+        text-align: center;
+    }
+    
+    .titulo-principal {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .index-contenedor {
+        padding: 1.5rem 1.5rem 3rem 1.5rem;
+        gap: 3rem;
+    }
+    .texto-promo p,
+    .texto-mantenimiento p,
+    .texto-filosofia p {
+        font-size: 1rem;
+    }
+    .texto-mantenimiento h2,
+    .texto-filosofia h3 {
+        font-size: 1.5rem;
+    }
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .index-contenedor {
+        padding: 1rem 1rem 2rem 1rem;
+        gap: 2rem;
+    }
+    .titulo-principal {
+        font-size: 1.3rem;
+    }
+    .texto-mantenimiento h2,
+    .texto-filosofia h3 {
+        font-size: 1.3rem;
+    }
+}

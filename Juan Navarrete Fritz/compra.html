@@ -33,11 +33,28 @@
             </div>
             <hr class="linea-compra">
             <h3 class="total-compra">Total a Pagar: <span id="precio_total_display">$0</span></h3>
-            <button class="boton-confirmar" onclick="alert('¡Gracias por su compra!')">Confirmar Pedido</button>
+            <div id="formularioEnvio" class="mt-3" style="display: block;">
+                <div class="mb-3">
+                    <label for="nombre_cliente" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre_cliente" placeholder="Ingresa tu nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido_cliente" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido_cliente" placeholder="Ingresa tu apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="email_cliente" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email_cliente" placeholder="Ingresa tu correo electrónico">
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono">
+                </div>
+            </div>
+            <button class="boton-confirmar" onclick="validarFormulario()">Confirmar Pedido</button>
         </div>
     </main>
-
-
+    
     <section class="footer_main">
     <footer class="footer_settings">
       <div class="footer_top">

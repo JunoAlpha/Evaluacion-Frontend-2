@@ -24,18 +24,14 @@ const auto =  {
     ],
 }
 
-
-
 const imagenAuto = document.getElementById("imagen_vehiculo");
-// Buscar el selector en catalogo.html o en compra.html
 const selectorColores = document.getElementById("selector_colores")
 
-// Si existe la imagen, la seteamos al primer color por defecto
 if (imagenAuto && auto.colores.length > 0) {
     imagenAuto.src = auto.colores[0].imagen;
 }
 
-auto.colores.forEach((colores, index) => { //index es la posicion del elemento en el array
+auto.colores.forEach((colores, index) => { 
     const coloresDiv = document.createElement('div');
     coloresDiv.className = "coloresDiv";
     coloresDiv.innerHTML = `<input type="radio" name="color_auto" id="color-${index}" value="${colores.precio}" data_nombre="${colores.nombre}" ${index === 0 ? 'checked' : ''}>
@@ -49,11 +45,6 @@ auto.colores.forEach((colores, index) => { //index es la posicion del elemento e
     if(selectorColores) selectorColores.appendChild(coloresDiv); 
 });
 
-//query selector = toma un elemento y evento seleccionado para realizar
-//una accion, en este caso el evento es change es un evento que se ejecuta cuando el valor de un elemento cambia
-
-// Mapa de etiquetas: clave del objeto auto -> título que se muestra en pantalla
-// Puedes cambiar los strings de la derecha sin afectar el código
 const etiquetasAuto = {
     marca:        "Marca",
     modelo:       "Modelo",
@@ -72,7 +63,6 @@ const formatearClave = (clave) => etiquetasAuto[clave] ?? String(clave);
 const detallesAuto = document.getElementById("detalles-auto");
 
 if (detallesAuto) {
-    // Extraemos un arreglo con formato [clave, valor] de las primeras 10 propiedades
     const propiedadesAuto = Object.entries(auto).slice(0,10).filter((_, index) => index !== 4);
     
     propiedadesAuto.forEach(([clave, valor]) => {
@@ -104,7 +94,6 @@ const calcularTotal = () => {
     const colorChecked = document.querySelector("input[name='color_auto']:checked");
     const nombreColor = colorChecked.getAttribute("data_nombre"); 
 
-    // FIX: solo actualizar estos elementos si existen (no existen en compra.html)
     const valorColorEl = document.getElementById("valor_color");
     if (valorColorEl) {
         valorColorEl.textContent = `Color ${nombreColor}: $${parseFloat(colorChecked.value).toLocaleString("es-CL")}`;
@@ -151,11 +140,9 @@ const calcularTotal = () => {
     localStorage.setItem("adicionalSeleccionados",JSON.stringify(adicionalesSeleccionados));
 }
 
-
 const pantallaCompra = () => {
     const compraValorBase = document.getElementById("valor_base")
     if (compraValorBase){
-        // FIX: usar auto.precioBase en vez de compraValorBase (que es un elemento HTML)
         compraValorBase.textContent = "Precio Base: " + `$${auto.precioBase.toLocaleString("es-CL")}`;
     }
 
@@ -189,7 +176,36 @@ const pantallaCompra = () => {
     }   
 }
 
-// FIX: llamar pantallaCompra() si estamos en compra.html
+const validarFormulario = () => {
+    const nombre = document.getElementById("nombre_cliente").value.trim(); 
+    const apellido = document.getElementById("apellido_cliente").value.trim(); 
+    const email = document.getElementById("email_cliente").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+
+    if(!nombre || !apellido || !email || !telefono){
+        alert("Por favor complete todos los campos");
+        return; 
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(email)){
+        alert("Por favor ingrese un correo electrónico válido");
+        return; 
+    }
+    
+    const telefonoRegex = /^[0-9]{9}$/;
+    if(!telefonoRegex.test(telefono)){
+        alert("Por favor ingrese un número de teléfono válido (9 dígitos numéricos)");
+        return; 
+    }
+    
+    alert("Compra confirmada correctamente");
+    window.location.href = "index.html";
+};
+
+window.validarFormulario = validarFormulario;
+
+
 if (window.location.pathname.endsWith("compra.html")) {
     pantallaCompra();
 }
